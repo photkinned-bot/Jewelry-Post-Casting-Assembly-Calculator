@@ -51,6 +51,8 @@ export interface MetalPricingState {
     silver_999: number;
     platinum_999: number;
     lastUpdated: string | null;
+    date?: string | null;
+    source?: 'live_nbu' | 'cached' | 'fallback' | null;
     isLoading: boolean;
     error: string | null;
   };
