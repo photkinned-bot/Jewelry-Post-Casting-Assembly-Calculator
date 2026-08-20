@@ -1,0 +1,6 @@
+{
+  "name": "Jewelry Post-Casting & Assembly Calculator",
+  "description": "Професійний калькулятор собівартості ювелірного монтування, закріпки каменів, фінішної обробки та розрахунку роздрібних цін з курсами НБУ",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

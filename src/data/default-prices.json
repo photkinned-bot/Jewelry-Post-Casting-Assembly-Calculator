@@ -1,0 +1,94 @@
+{
+  "general": {
+    "defaultLosses": {
+      "silver_925": 9.0,
+      "gold_585": 6.0,
+      "gold_750": 6.0,
+      "platinum_950": 10.0
+    }
+  },
+  "works": {
+    "grinding_fixed": 200,
+    "grinding_per_gram": 45,
+    "soldering_per_point": 120,
+    "assembly_base": 250,
+    "custom_elements_base": 300
+  },
+  "stoneSetting": {
+    "krapan": {
+      "cz": 40,
+      "diamond": 90,
+      "precious": 80,
+      "semiprecious": 50,
+      "pearl": 60
+    },
+    "bezel": {
+      "cz": 60,
+      "diamond": 130,
+      "precious": 120,
+      "semiprecious": 80,
+      "pearl": 70
+    },
+    "korner": {
+      "cz": 70,
+      "diamond": 120,
+      "precious": 110,
+      "semiprecious": 80,
+      "pearl": 90
+    },
+    "pave": {
+      "cz": 80,
+      "diamond": 140,
+      "precious": 130,
+      "semiprecious": 90,
+      "pearl": 100
+    },
+    "microscope": {
+      "cz": 110,
+      "diamond": 180,
+      "precious": 170,
+      "semiprecious": 120,
+      "pearl": 140
+    },
+    "channel": {
+      "cz": 90,
+      "diamond": 160,
+      "precious": 150,
+      "semiprecious": 100,
+      "pearl": 110
+    },
+    "fantasy": {
+      "cz": 120,
+      "diamond": 220,
+      "precious": 200,
+      "semiprecious": 140,
+      "pearl": 160
+    }
+  },
+  "finishing": {
+    "polishing_manual": 150,
+    "polishing_tumbling": 70,
+    "polishing_fluff": 120,
+    "matting_sandblast": 120,
+    "matting_brush": 90,
+    "matting_diamond": 180,
+    "engraving_manual_per_char": 45,
+    "laser_inside": 250,
+    "laser_outside": 250,
+    "laser_3d": 450,
+    "enamel_cold": 200,
+    "enamel_hot": 550
+  },
+  "galvanics": {
+    "rhodium_white": 350,
+    "rhodium_black": 420,
+    "rhodium_selective": 550,
+    "gold_plating": 400,
+    "oxidation_silver": 150
+  },
+  "additional": {
+    "consumables_percent": 5.0,
+    "consumables_fixed": 150,
+    "assay_office_per_item": 120
+  }
+}

@@ -1,0 +1,278 @@
+[
+  {
+    "id": "ring_micropave",
+    "name": "Каблучка з мікропаве (Золото 585)",
+    "description": "Вишукана каблучка з центральною закріпкою та 20 камінцями в техніці мікропаве",
+    "category": "Каблучки",
+    "settings": {
+      "general": {
+        "productType": "ring",
+        "productName": "Каблучка з мікропаве",
+        "metal": "gold_585",
+        "weight": 4.5,
+        "lossPercent": 6.0
+      },
+      "works": {
+        "grinding": { "enabled": true, "type": "fixed", "qty": 1, "price": 200 },
+        "soldering": { "enabled": false, "qty": 0, "price": 120 },
+        "assembly": { "enabled": true, "qty": 1, "price": 250 },
+        "customElements": { "enabled": false, "qty": 0, "price": 300 }
+      },
+      "stones": [
+        {
+          "id": "s1",
+          "settingType": "krapan",
+          "stoneType": "diamond",
+          "qty": 1,
+          "settingPrice": 120,
+          "stoneCostPerUnit": 4500,
+          "comment": "Центральний діамант 0.30 ct"
+        },
+        {
+          "id": "s2",
+          "settingType": "microscope",
+          "stoneType": "diamond",
+          "qty": 20,
+          "settingPrice": 180,
+          "stoneCostPerUnit": 220,
+          "comment": "Діаманти розсип 1.2 мм"
+        }
+      ],
+      "finishing": {
+        "polishing": { "enabled": true, "type": "manual", "qty": 1, "price": 150 },
+        "matting": { "enabled": false, "type": "sandblast", "qty": 1, "price": 120 },
+        "engraving": { "enabled": false, "qty": 10, "price": 45 },
+        "laserEngraving": { "enabled": true, "type": "inside", "qty": 1, "price": 250 },
+        "enameling": { "enabled": false, "type": "cold", "qty": 1, "price": 200 }
+      },
+      "galvanics": {
+        "rhodiumPlating": { "enabled": true, "type": "white", "qty": 1, "price": 350 },
+        "goldPlating": { "enabled": false, "qty": 1, "price": 400 },
+        "oxidation": { "enabled": false, "qty": 1, "price": 150 }
+      },
+      "additional": {
+        "consumables": { "enabled": true, "type": "percent", "value": 5.0 },
+        "assayOffice": { "enabled": true, "qty": 1, "price": 120 }
+      }
+    }
+  },
+  {
+    "id": "chain_bismarck",
+    "name": "Ланцюжок Бісмарк (Золото 585, 18г)",
+    "description": "Масивний класичний ланцюжок ручного плетіння з карабіном та кінцевиками",
+    "category": "Ланцюжки",
+    "settings": {
+      "general": {
+        "productType": "chain",
+        "productName": "Ланцюжок Бісмарк ручної в'язки",
+        "metal": "gold_585",
+        "weight": 18.0,
+        "lossPercent": 6.0
+      },
+      "works": {
+        "grinding": { "enabled": true, "type": "per_gram", "qty": 18.0, "price": 45 },
+        "soldering": { "enabled": true, "qty": 45, "price": 35 },
+        "assembly": { "enabled": true, "qty": 1, "price": 500 },
+        "customElements": { "enabled": true, "qty": 2, "price": 250 }
+      },
+      "stones": [],
+      "finishing": {
+        "polishing": { "enabled": true, "type": "manual", "qty": 1, "price": 250 },
+        "matting": { "enabled": false, "type": "diamond", "qty": 1, "price": 180 },
+        "engraving": { "enabled": false, "qty": 0, "price": 45 },
+        "laserEngraving": { "enabled": false, "type": "outside", "qty": 0, "price": 250 },
+        "enameling": { "enabled": false, "type": "cold", "qty": 0, "price": 200 }
+      },
+      "galvanics": {
+        "rhodiumPlating": { "enabled": false, "type": "white", "qty": 1, "price": 350 },
+        "goldPlating": { "enabled": false, "qty": 1, "price": 400 },
+        "oxidation": { "enabled": false, "qty": 1, "price": 150 }
+      },
+      "additional": {
+        "consumables": { "enabled": true, "type": "percent", "value": 5.0 },
+        "assayOffice": { "enabled": true, "qty": 1, "price": 120 }
+      }
+    }
+  },
+  {
+    "id": "earrings_drop_emerald",
+    "name": "Сережки-підвіски зі смарагдами (Золото 750)",
+    "description": "Пара сережок з англійським замком, 2 овальними смарагдами та паве з діамантів",
+    "category": "Сережки",
+    "settings": {
+      "general": {
+        "productType": "earrings",
+        "productName": "Сережки зі смарагдами та діамантами",
+        "metal": "gold_750",
+        "weight": 7.2,
+        "lossPercent": 6.0
+      },
+      "works": {
+        "grinding": { "enabled": true, "type": "fixed", "qty": 1, "price": 250 },
+        "soldering": { "enabled": true, "qty": 4, "price": 120 },
+        "assembly": { "enabled": true, "qty": 1, "price": 400 },
+        "customElements": { "enabled": true, "qty": 2, "price": 200 }
+      },
+      "stones": [
+        {
+          "id": "s1",
+          "settingType": "krapan",
+          "stoneType": "precious",
+          "qty": 2,
+          "settingPrice": 160,
+          "stoneCostPerUnit": 3200,
+          "comment": "Смарагди колумбійські 5х4 мм"
+        },
+        {
+          "id": "s2",
+          "settingType": "pave",
+          "stoneType": "diamond",
+          "qty": 28,
+          "settingPrice": 140,
+          "stoneCostPerUnit": 180,
+          "comment": "Діамантове обрамлення"
+        }
+      ],
+      "finishing": {
+        "polishing": { "enabled": true, "type": "fluff", "qty": 1, "price": 180 },
+        "matting": { "enabled": false, "type": "sandblast", "qty": 1, "price": 120 },
+        "engraving": { "enabled": false, "qty": 0, "price": 45 },
+        "laserEngraving": { "enabled": false, "type": "inside", "qty": 0, "price": 250 },
+        "enameling": { "enabled": false, "type": "cold", "qty": 0, "price": 200 }
+      },
+      "galvanics": {
+        "rhodiumPlating": { "enabled": true, "type": "white", "qty": 1, "price": 400 },
+        "goldPlating": { "enabled": false, "qty": 1, "price": 400 },
+        "oxidation": { "enabled": false, "qty": 1, "price": 150 }
+      },
+      "additional": {
+        "consumables": { "enabled": true, "type": "percent", "value": 6.0 },
+        "assayOffice": { "enabled": true, "qty": 2, "price": 120 }
+      }
+    }
+  },
+  {
+    "id": "wedding_ring_engraved",
+    "name": "Обручка класична Comfort Fit (Золото 585)",
+    "description": "Класична комфортна обручка з поліруванням та внутрішнім лазерним гравіюванням",
+    "category": "Каблучки",
+    "settings": {
+      "general": {
+        "productType": "ring",
+        "productName": "Обручка Comfort Fit",
+        "metal": "gold_585",
+        "weight": 3.8,
+        "lossPercent": 6.0
+      },
+      "works": {
+        "grinding": { "enabled": true, "type": "fixed", "qty": 1, "price": 180 },
+        "soldering": { "enabled": false, "qty": 0, "price": 120 },
+        "assembly": { "enabled": false, "qty": 0, "price": 250 },
+        "customElements": { "enabled": false, "qty": 0, "price": 300 }
+      },
+      "stones": [],
+      "finishing": {
+        "polishing": { "enabled": true, "type": "manual", "qty": 1, "price": 150 },
+        "matting": { "enabled": false, "type": "sandblast", "qty": 1, "price": 120 },
+        "engraving": { "enabled": false, "qty": 0, "price": 45 },
+        "laserEngraving": { "enabled": true, "type": "inside", "qty": 1, "price": 250 },
+        "enameling": { "enabled": false, "type": "cold", "qty": 0, "price": 200 }
+      },
+      "galvanics": {
+        "rhodiumPlating": { "enabled": false, "type": "white", "qty": 1, "price": 350 },
+        "goldPlating": { "enabled": false, "qty": 1, "price": 400 },
+        "oxidation": { "enabled": false, "qty": 1, "price": 150 }
+      },
+      "additional": {
+        "consumables": { "enabled": true, "type": "fixed", "value": 100 },
+        "assayOffice": { "enabled": true, "qty": 1, "price": 120 }
+      }
+    }
+  },
+  {
+    "id": "silver_pendant_oxidized",
+    "name": "Срібний кулон-оберіг з оксидуванням (Срібло 925)",
+    "description": "Фактурний кулон з контрастним чорнінням та сатинуванням рельєфу",
+    "category": "Кулони",
+    "settings": {
+      "general": {
+        "productType": "pendant",
+        "productName": "Срібний кулон-оберіг",
+        "metal": "silver_925",
+        "weight": 8.5,
+        "lossPercent": 9.0
+      },
+      "works": {
+        "grinding": { "enabled": true, "type": "fixed", "qty": 1, "price": 180 },
+        "soldering": { "enabled": true, "qty": 1, "price": 80 },
+        "assembly": { "enabled": true, "qty": 1, "price": 150 },
+        "customElements": { "enabled": false, "qty": 0, "price": 0 }
+      },
+      "stones": [],
+      "finishing": {
+        "polishing": { "enabled": true, "type": "manual", "qty": 1, "price": 120 },
+        "matting": { "enabled": true, "type": "brush", "qty": 1, "price": 90 },
+        "engraving": { "enabled": false, "qty": 0, "price": 45 },
+        "laserEngraving": { "enabled": false, "type": "inside", "qty": 0, "price": 250 },
+        "enameling": { "enabled": false, "type": "cold", "qty": 0, "price": 200 }
+      },
+      "galvanics": {
+        "rhodiumPlating": { "enabled": false, "type": "white", "qty": 1, "price": 350 },
+        "goldPlating": { "enabled": false, "qty": 1, "price": 400 },
+        "oxidation": { "enabled": true, "qty": 1, "price": 150 }
+      },
+      "additional": {
+        "consumables": { "enabled": true, "type": "percent", "value": 5.0 },
+        "assayOffice": { "enabled": true, "qty": 1, "price": 100 }
+      }
+    }
+  },
+  {
+    "id": "mens_signet_platinum",
+    "name": "Чоловіча печатка з глухою закріпкою (Платина 950)",
+    "description": "Статусна чоловіча печатка з чорним оніксом або діамантом у глухій оправі",
+    "category": "Персні",
+    "settings": {
+      "general": {
+        "productType": "ring",
+        "productName": "Чоловіча печатка з глухою закріпкою",
+        "metal": "platinum_950",
+        "weight": 14.0,
+        "lossPercent": 10.0
+      },
+      "works": {
+        "grinding": { "enabled": true, "type": "per_gram", "qty": 14.0, "price": 60 },
+        "soldering": { "enabled": false, "qty": 0, "price": 180 },
+        "assembly": { "enabled": true, "qty": 1, "price": 400 },
+        "customElements": { "enabled": false, "qty": 0, "price": 0 }
+      },
+      "stones": [
+        {
+          "id": "s1",
+          "settingType": "bezel",
+          "stoneType": "diamond",
+          "qty": 1,
+          "settingPrice": 250,
+          "stoneCostPerUnit": 9500,
+          "comment": "Принцеса 0.50 ct"
+        }
+      ],
+      "finishing": {
+        "polishing": { "enabled": true, "type": "manual", "qty": 1, "price": 300 },
+        "matting": { "enabled": true, "type": "sandblast", "qty": 1, "price": 180 },
+        "engraving": { "enabled": false, "qty": 0, "price": 45 },
+        "laserEngraving": { "enabled": true, "type": "3d", "qty": 1, "price": 450 },
+        "enameling": { "enabled": false, "type": "cold", "qty": 0, "price": 200 }
+      },
+      "galvanics": {
+        "rhodiumPlating": { "enabled": false, "type": "white", "qty": 1, "price": 350 },
+        "goldPlating": { "enabled": false, "qty": 1, "price": 400 },
+        "oxidation": { "enabled": false, "qty": 1, "price": 150 }
+      },
+      "additional": {
+        "consumables": { "enabled": true, "type": "percent", "value": 7.0 },
+        "assayOffice": { "enabled": true, "qty": 1, "price": 150 }
+      }
+    }
+  }
+]
