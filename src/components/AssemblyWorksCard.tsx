@@ -1,18 +1,22 @@
 import React from 'react';
 import { WorksState } from '../types';
-import { Hammer, Wrench, Flame, Component, Lock } from 'lucide-react';
+import { Hammer, Wrench, Flame, Component, Lock, ChevronDown } from 'lucide-react';
 import { formatCurrencyUAH, formatNumber } from '../services/calculator';
 
 interface AssemblyWorksCardProps {
   works: WorksState;
   productWeight: number;
   onChange: (updated: Partial<WorksState>) => void;
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
 }
 
 export const AssemblyWorksCard: React.FC<AssemblyWorksCardProps> = ({
   works,
   productWeight,
   onChange,
+  isCollapsed = false,
+  onToggleCollapse,
 }) => {
   const handleGrindingChange = (updated: Partial<WorksState['grinding']>) => {
     onChange({
@@ -49,26 +53,65 @@ export const AssemblyWorksCard: React.FC<AssemblyWorksCardProps> = ({
   const totalWorks = grindingTotal + solderingTotal + assemblyTotal + customElementsTotal;
 
   return (
-    <div className="bg-[#12141c]/90 rounded-2xl border border-[#232838] p-5 shadow-sm space-y-4">
-      <div className="flex items-center justify-between border-b border-[#232838]/80 pb-3">
-        <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+    <div
+      id="card-assembly-works"
+      className={`bg-[#12141c]/90 rounded-2xl border transition-all duration-200 shadow-sm ${
+        isCollapsed ? 'border-[#232838] hover:border-[#333a52]' : 'border-[#232838] shadow-md'
+      }`}
+    >
+      {/* Clickable Header */}
+      <div
+        onClick={onToggleCollapse}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onToggleCollapse?.();
+          }
+        }}
+        className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-3 cursor-pointer select-none rounded-2xl focus:outline-none focus:ring-1 focus:ring-amber-500/50"
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex-shrink-0">
             <Hammer className="w-4 h-4" />
           </div>
-          <div>
-            <h2 className="text-sm font-semibold text-white">3. Слюсарні та монтувальні роботи</h2>
-            <p className="text-xs text-neutral-400">Обробка литва, опилювання, пайка та збирання конструкції</p>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-sm font-semibold text-white tracking-tight">
+                4. Слюсарні та монтувальні роботи
+              </h2>
+              <span className="text-[10px] font-mono text-neutral-400 bg-[#0e1017] px-2 py-0.5 rounded-md border border-[#232838]">
+                Блок 4 / 8
+              </span>
+            </div>
+            <p className="text-xs text-neutral-400 truncate mt-0.5 hidden sm:block">
+              Обробка литва, опилювання, пайка та збирання конструкції
+            </p>
           </div>
         </div>
-        <div className="text-right">
-          <span className="text-xs text-neutral-400">Підсумок блоку: </span>
-          <span className="text-sm font-bold text-amber-400 font-mono">
+
+        {/* Badge & Chevron */}
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <span className="text-xs font-semibold text-amber-300 font-mono bg-amber-500/10 px-2 py-1 rounded-lg border border-amber-500/20">
             {formatCurrencyUAH(totalWorks)}
           </span>
+
+          <div
+            className={`p-1.5 rounded-lg bg-[#1b1f2b] text-neutral-400 border border-[#262c3e] transition-transform duration-200 ${
+              isCollapsed ? '' : 'rotate-180 text-amber-400'
+            }`}
+          >
+            <ChevronDown className="w-4 h-4" />
+          </div>
         </div>
       </div>
 
-      <div className="space-y-3">
+      {/* Body */}
+      {!isCollapsed && (
+        <div className="px-4 pb-5 sm:px-5 sm:pb-5 pt-0 border-t border-[#232838]/80 mt-1 space-y-4">
+          <div className="pt-4 space-y-3">
+
         {/* 1. Grinding / Filing */}
         <div
           className={`p-3.5 rounded-xl border transition ${
@@ -363,5 +406,8 @@ export const AssemblyWorksCard: React.FC<AssemblyWorksCardProps> = ({
         </div>
       </div>
     </div>
+  )}
+</div>
   );
 };
+

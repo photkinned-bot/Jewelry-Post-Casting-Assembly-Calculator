@@ -27,8 +27,25 @@ export function generateTxtReport(state: AppState, calc: CalculationResult): str
   lines.push(`• Вартість металу з урахуванням угару: ${formatCurrencyUAH(calc.metalTotalCost)}`);
   lines.push('');
 
-  // 2. Works & Services
-  lines.push('--- 2. ЮВЕЛІРНІ РОБОТИ ТА ПОСЛУГИ ---');
+  // 2. Preparatory & Casting Works
+  if (calc.productionPrepSubtotal > 0 || state.productionPrep?.design3d?.enabled || state.productionPrep?.moldingBurnout?.enabled || state.productionPrep?.casting?.enabled) {
+    lines.push('--- 2. 3D-ДИЗАЙН, ФОРМУВАННЯ ТА ЛИТТЯ ---');
+    if (state.productionPrep?.design3d?.enabled) {
+      lines.push(`• Дизайн та 3D-моделювання (CAD): ${formatCurrencyUAH(calc.design3dCost)}`);
+    }
+    if (state.productionPrep?.moldingBurnout?.enabled) {
+      lines.push(`• Формування та випалювання опоки: ${formatCurrencyUAH(calc.moldingBurnoutCost)}`);
+    }
+    if (state.productionPrep?.casting?.enabled) {
+      const cType = state.productionPrep.casting.type === 'per_gram' ? `за ${formatNumber(calc.metalTotalWeightWithLoss, 2)}г` : 'фіксоване';
+      lines.push(`• Лиття виробу (${cType}): ${formatCurrencyUAH(calc.castingCost)}`);
+    }
+    lines.push(`  Разом за підготовку та литво: ${formatCurrencyUAH(calc.productionPrepSubtotal)}`);
+    lines.push('');
+  }
+
+  // 3. Works & Services
+  lines.push('--- 3. ЮВЕЛІРНІ МОНТУВАЛЬНІ РОБОТИ ---');
   if (state.works.grinding.enabled) {
     const typeLabel = state.works.grinding.type === 'per_gram' ? `за ${formatNumber(state.general.weight, 2)}г` : 'фіксоване';
     lines.push(`• Шліфування та опилювання (${typeLabel}): ${formatCurrencyUAH(calc.grindingCost)}`);

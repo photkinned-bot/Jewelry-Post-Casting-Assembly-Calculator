@@ -9,6 +9,12 @@ export const INITIAL_DEFAULT_PRICES: DefaultPrices = {
       platinum_950: 10.0,
     },
   },
+  productionPrep: {
+    design3d_base: 500,
+    molding_burnout_base: 150,
+    casting_fixed: 200,
+    casting_per_gram: 35,
+  },
   works: {
     grinding_fixed: 200,
     grinding_per_gram: 45,

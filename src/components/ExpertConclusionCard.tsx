@@ -1,20 +1,26 @@
 import React from 'react';
 import { CalculationResult, AppState } from '../types';
-import { Award, CheckCircle, AlertTriangle, Lightbulb, Compass } from 'lucide-react';
+import { Award, CheckCircle, AlertTriangle, Lightbulb, Compass, ChevronDown } from 'lucide-react';
 import { formatCurrencyUAH, formatNumber, METAL_COEFFICIENTS } from '../services/calculator';
 
 interface ExpertConclusionCardProps {
   state: AppState;
   calc: CalculationResult;
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
 }
 
-export const ExpertConclusionCard: React.FC<ExpertConclusionCardProps> = ({ state, calc }) => {
+export const ExpertConclusionCard: React.FC<ExpertConclusionCardProps> = ({
+  state,
+  calc,
+  isCollapsed = false,
+  onToggleCollapse,
+}) => {
   const metalMeta = METAL_COEFFICIENTS[state.general.metal] || METAL_COEFFICIENTS.gold_585;
 
   // Analytical indicators
   const laborRatio = calc.laborToMetalRatio;
   const isHighStoneLabor = calc.stoneSettingSubtotal > calc.assemblyWorksSubtotal && calc.stonesTotalCount > 10;
-  const isHeavyMetal = state.general.weight >= 12;
 
   let economicVerdict = '';
   if (laborRatio < 0.25) {
@@ -29,102 +35,144 @@ export const ExpertConclusionCard: React.FC<ExpertConclusionCardProps> = ({ stat
   }
 
   return (
-    <div className="bg-[#12141c]/90 rounded-2xl border border-[#232838] p-5 shadow-sm space-y-4">
-      <div className="flex items-center justify-between border-b border-[#232838]/80 pb-3">
-        <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+    <div
+      id="card-expert-conclusion"
+      className={`bg-[#12141c]/90 rounded-2xl border transition-all duration-200 shadow-sm ${
+        isCollapsed ? 'border-[#232838] hover:border-[#333a52]' : 'border-[#232838] shadow-md'
+      }`}
+    >
+      {/* Clickable Header */}
+      <div
+        onClick={onToggleCollapse}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onToggleCollapse?.();
+          }
+        }}
+        className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-3 cursor-pointer select-none rounded-2xl focus:outline-none focus:ring-1 focus:ring-amber-500/50"
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex-shrink-0">
             <Compass className="w-4 h-4" />
           </div>
-          <div>
-            <h2 className="text-sm font-semibold text-white">8. Експертний аналітичний висновок</h2>
-            <p className="text-xs text-neutral-400">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-sm font-semibold text-white tracking-tight">
+                Експертний аналітичний висновок
+              </h2>
+              <span className="text-[10px] font-mono text-neutral-400 bg-[#0e1017] px-2 py-0.5 rounded-md border border-[#232838]">
+                Аналітика
+              </span>
+            </div>
+            <p className="text-xs text-neutral-400 truncate mt-0.5 hidden sm:block">
               Оцінка провідного ювеліра-технолога та головного економіста виробництва
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0c0e14] border border-[#262c3e] text-[11px] font-medium text-neutral-300">
-          <Award className="w-3.5 h-3.5 text-amber-400" />
-          <span>Складність: <strong className="text-amber-300">{calc.complexityScore}</strong></span>
+        {/* Badge & Chevron */}
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0c0e14] border border-[#262c3e] text-[11px] font-medium text-neutral-300">
+            <Award className="w-3.5 h-3.5 text-amber-400" />
+            <span>Складність: <strong className="text-amber-300">{calc.complexityScore}</strong></span>
+          </div>
+
+          <div
+            className={`p-1.5 rounded-lg bg-[#1b1f2b] text-neutral-400 border border-[#262c3e] transition-transform duration-200 ${
+              isCollapsed ? '' : 'rotate-180 text-amber-400'
+            }`}
+          >
+            <ChevronDown className="w-4 h-4" />
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        {/* Metric 1 */}
-        <div className="bg-[#0c0e14] p-3 rounded-xl border border-[#232838]">
-          <span className="text-[11px] text-neutral-400 block mb-1">Коефіцієнт Робота / Метал</span>
-          <div className="text-base font-bold font-mono text-white">
-            {laborRatio}x
-          </div>
-          <p className="text-[10px] text-neutral-400 mt-1">
-            {laborRatio > 0.6 ? 'Переважає ручна праця майстра' : 'Переважає вартість дорогоцінного металу'}
-          </p>
-        </div>
+      {/* Body */}
+      {!isCollapsed && (
+        <div className="px-4 pb-5 sm:px-5 sm:pb-5 pt-0 border-t border-[#232838]/80 mt-1 space-y-4">
+          <div className="pt-4 space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {/* Metric 1 */}
+              <div className="bg-[#0c0e14] p-3 rounded-xl border border-[#232838]">
+                <span className="text-[11px] text-neutral-400 block mb-1">Коефіцієнт Робота / Метал</span>
+                <div className="text-base font-bold font-mono text-white">
+                  {laborRatio}x
+                </div>
+                <p className="text-[10px] text-neutral-400 mt-1">
+                  {laborRatio > 0.6 ? 'Переважає ручна праця майстра' : 'Переважає вартість дорогоцінного металу'}
+                </p>
+              </div>
 
-        {/* Metric 2 */}
-        <div className="bg-[#0c0e14] p-3 rounded-xl border border-[#232838]">
-          <span className="text-[11px] text-neutral-400 block mb-1">Втрати на угар та обробку</span>
-          <div className="text-base font-bold font-mono text-amber-400">
-            {formatNumber(calc.metalLossWeight, 2)} г ({state.general.lossPercent}%)
-          </div>
-          <p className="text-[10px] text-neutral-400 mt-1">
-            Вартість угару: {formatCurrencyUAH(calc.metalLossWeight * calc.metalPricePerGramAlloy)}
-          </p>
-        </div>
+              {/* Metric 2 */}
+              <div className="bg-[#0c0e14] p-3 rounded-xl border border-[#232838]">
+                <span className="text-[11px] text-neutral-400 block mb-1">Втрати на угар та обробку</span>
+                <div className="text-base font-bold font-mono text-amber-400">
+                  {formatNumber(calc.metalLossWeight, 2)} г ({state.general.lossPercent}%)
+                </div>
+                <p className="text-[10px] text-neutral-400 mt-1">
+                  Вартість угару: {formatCurrencyUAH(calc.metalLossWeight * calc.metalPricePerGramAlloy)}
+                </p>
+              </div>
 
-        {/* Metric 3 */}
-        <div className="bg-[#0c0e14] p-3 rounded-xl border border-[#232838]">
-          <span className="text-[11px] text-neutral-400 block mb-1">Кількість вставок</span>
-          <div className="text-base font-bold font-mono text-purple-300">
-            {calc.stonesTotalCount} шт
-          </div>
-          <p className="text-[10px] text-neutral-400 mt-1">
-            Закріпка: {formatCurrencyUAH(calc.stoneSettingSubtotal)}
-          </p>
-        </div>
-      </div>
-
-      {/* Analytical Reasoning Box */}
-      <div className="bg-[#0c0e14] p-4 rounded-xl border border-[#232838] space-y-3">
-        <div className="flex items-start gap-2.5">
-          <Lightbulb className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
-          <div className="space-y-1.5 text-xs">
-            <h4 className="font-semibold text-neutral-200">Економічне та технологічне обґрунтування:</h4>
-            <p className="text-neutral-400 leading-relaxed">{economicVerdict}</p>
-          </div>
-        </div>
-
-        {/* Specific recommendations */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-[#1a1f2c] text-xs">
-          <div className="flex items-start gap-2 text-neutral-300">
-            <CheckCircle className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-            <span>
-              <strong>Норма угару:</strong> {state.general.lossPercent}% відповідає стандарту для{' '}
-              {metalMeta.name} {metalMeta.purityLabel}.
-            </span>
-          </div>
-
-          {state.finishing.laserEngraving.enabled && (
-            <div className="flex items-start gap-2 text-neutral-300">
-              <CheckCircle className="w-3.5 h-3.5 text-blue-400 flex-shrink-0 mt-0.5" />
-              <span>
-                <strong>Лазерне маркування:</strong> підвищує захист від підробок та додає брендову цінність.
-              </span>
+              {/* Metric 3 */}
+              <div className="bg-[#0c0e14] p-3 rounded-xl border border-[#232838]">
+                <span className="text-[11px] text-neutral-400 block mb-1">Кількість вставок</span>
+                <div className="text-base font-bold font-mono text-purple-300">
+                  {calc.stonesTotalCount} шт
+                </div>
+                <p className="text-[10px] text-neutral-400 mt-1">
+                  Закріпка: {formatCurrencyUAH(calc.stoneSettingSubtotal)}
+                </p>
+              </div>
             </div>
-          )}
 
-          {galvanicsProtectionCheck(state)}
+            {/* Analytical Reasoning Box */}
+            <div className="bg-[#0c0e14] p-4 rounded-xl border border-[#232838] space-y-3">
+              <div className="flex items-start gap-2.5">
+                <Lightbulb className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                <div className="space-y-1.5 text-xs">
+                  <h4 className="font-semibold text-neutral-200">Економічне та технологічне обґрунтування:</h4>
+                  <p className="text-neutral-400 leading-relaxed">{economicVerdict}</p>
+                </div>
+              </div>
 
-          {isHighStoneLabor && (
-            <div className="flex items-start gap-2 text-amber-300/90">
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
-              <span>
-                <strong>Контроль посадки каменів:</strong> Рекомендовано перевірку під мікроскопом 20x.
-              </span>
+              {/* Specific recommendations */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-[#1a1f2c] text-xs">
+                <div className="flex items-start gap-2 text-neutral-300">
+                  <CheckCircle className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Норма угару:</strong> {state.general.lossPercent}% відповідає стандарту для{' '}
+                    {metalMeta.name} {metalMeta.purityLabel}.
+                  </span>
+                </div>
+
+                {state.finishing.laserEngraving.enabled && (
+                  <div className="flex items-start gap-2 text-neutral-300">
+                    <CheckCircle className="w-3.5 h-3.5 text-blue-400 flex-shrink-0 mt-0.5" />
+                    <span>
+                      <strong>Лазерне маркування:</strong> підвищує захист від підробок та додає брендову цінність.
+                    </span>
+                  </div>
+                )}
+
+                {galvanicsProtectionCheck(state)}
+
+                {isHighStoneLabor && (
+                  <div className="flex items-start gap-2 text-amber-300/90">
+                    <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
+                    <span>
+                      <strong>Контроль посадки каменів:</strong> Рекомендовано перевірку під мікроскопом 20x.
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

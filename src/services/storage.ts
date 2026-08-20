@@ -27,6 +27,21 @@ export function getDefaultInitialState(): AppState {
         error: null,
       },
     },
+    productionPrep: {
+      design3d: {
+        enabled: false,
+        price: 500,
+      },
+      moldingBurnout: {
+        enabled: false,
+        price: 150,
+      },
+      casting: {
+        enabled: false,
+        type: 'fixed',
+        price: 200,
+      },
+    },
     works: {
       grinding: {
         enabled: true,
@@ -142,6 +157,14 @@ export function loadStateFromLocalStorage(): AppState | null {
     if (raw) {
       const parsed = JSON.parse(raw) as AppState;
       if (parsed.general && parsed.works && parsed.metalPricing) {
+        // Ensure backwards compatibility for productionPrep
+        if (!parsed.productionPrep) {
+          parsed.productionPrep = {
+            design3d: { enabled: false, price: 500 },
+            moldingBurnout: { enabled: false, price: 150 },
+            casting: { enabled: false, type: 'fixed', price: 200 },
+          };
+        }
         return parsed;
       }
     }
@@ -157,13 +180,22 @@ export function loadSavedState(): AppState {
 
 export async function fetchLatestDefaultPrices(): Promise<DefaultPrices> {
   try {
-    const res = await fetch('/data/default-prices.json', { cache: 'no-cache' });
+    const res = await fetch('./data/default-prices.json', { cache: 'no-cache' });
     if (res.ok) {
       const data = await res.json();
       return data as DefaultPrices;
     }
   } catch {
-    // fallback
+    // fallback to absolute if running in root
+    try {
+      const resFallback = await fetch('/data/default-prices.json', { cache: 'no-cache' });
+      if (resFallback.ok) {
+        const data = await resFallback.json();
+        return data as DefaultPrices;
+      }
+    } catch {
+      // ignore
+    }
   }
   return INITIAL_DEFAULT_PRICES;
 }

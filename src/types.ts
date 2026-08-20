@@ -144,9 +144,31 @@ export interface AdditionalState {
   };
 }
 
+export interface ProductionPrepState {
+  design3d: {
+    enabled: boolean;
+    price: number; // 3D-моделювання / CAD дизайн (грн)
+  };
+  moldingBurnout: {
+    enabled: boolean;
+    price: number; // Формування та випалювання опоки (грн)
+  };
+  casting: {
+    enabled: boolean;
+    type: 'fixed' | 'per_gram'; // Фіксована ціна або за 1г металу відливки
+    price: number; // Вартість лиття (грн або грн/г)
+  };
+}
+
 export interface DefaultPrices {
   general: {
     defaultLosses: Record<MetalType, number>;
+  };
+  productionPrep: {
+    design3d_base: number;
+    molding_burnout_base: number;
+    casting_fixed: number;
+    casting_per_gram: number;
   };
   works: {
     grinding_fixed: number;
@@ -187,6 +209,7 @@ export interface DefaultPrices {
 export interface AppState {
   general: GeneralState;
   metalPricing: MetalPricingState;
+  productionPrep: ProductionPrepState;
   works: WorksState;
   stones: StoneRow[];
   finishing: FinishingState;
@@ -203,6 +226,12 @@ export interface CalculationResult {
   metalLossWeight: number;
   metalTotalWeightWithLoss: number;
   metalTotalCost: number;
+
+  // Production Prep & Casting (3D Design, Molding/Burnout, Casting)
+  design3dCost: number;
+  moldingBurnoutCost: number;
+  castingCost: number;
+  productionPrepSubtotal: number;
 
   // Works
   grindingCost: number;
@@ -241,7 +270,7 @@ export interface CalculationResult {
 
   // Grand Totals
   totalLaborAndServicesCost: number;
-  totalManufacturingCost: number; // metal + labor + stones + consumables
+  totalManufacturingCost: number; // metal + labor + stones + consumables + prep/casting
 
   // Retail & Segments
   massMarketPrice: number; // +30%
@@ -265,6 +294,7 @@ export interface PresetItem {
   category: string;
   settings: {
     general: GeneralState;
+    productionPrep?: ProductionPrepState;
     works: WorksState;
     stones: StoneRow[];
     finishing: FinishingState;

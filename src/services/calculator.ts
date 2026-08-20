@@ -8,7 +8,7 @@ export const METAL_COEFFICIENTS: Record<MetalType, { coeff: number; name: string
 };
 
 export function calculateCost(state: AppState): CalculationResult {
-  const { general, metalPricing, works, stones, finishing, galvanics, additional, customMarkupPercent } = state;
+  const { general, metalPricing, productionPrep, works, stones, finishing, galvanics, additional, customMarkupPercent } = state;
 
   // 1. Metal Calculation
   const metalMeta = METAL_COEFFICIENTS[general.metal] || METAL_COEFFICIENTS.gold_585;
@@ -37,7 +37,36 @@ export function calculateCost(state: AppState): CalculationResult {
   const metalTotalWeightWithLoss = Number((rawWeight + metalLossWeight).toFixed(3));
   const metalTotalCost = Number((metalTotalWeightWithLoss * metalPricePerGramAlloy).toFixed(2));
 
-  // 2. Assembly Works
+  // 2. Production Prep & Casting (3D Design, Molding/Burnout, Casting)
+  const prep = productionPrep || {
+    design3d: { enabled: false, price: 0 },
+    moldingBurnout: { enabled: false, price: 0 },
+    casting: { enabled: false, type: 'fixed', price: 0 },
+  };
+
+  const design3dCost = prep.design3d?.enabled
+    ? Number(Math.max(0, Number(prep.design3d.price) || 0).toFixed(2))
+    : 0;
+
+  const moldingBurnoutCost = prep.moldingBurnout?.enabled
+    ? Number(Math.max(0, Number(prep.moldingBurnout.price) || 0).toFixed(2))
+    : 0;
+
+  let castingCost = 0;
+  if (prep.casting?.enabled) {
+    const cPrice = Math.max(0, Number(prep.casting.price) || 0);
+    if (prep.casting.type === 'per_gram') {
+      castingCost = Number((metalTotalWeightWithLoss * cPrice).toFixed(2));
+    } else {
+      castingCost = Number(cPrice.toFixed(2));
+    }
+  }
+
+  const productionPrepSubtotal = Number(
+    (design3dCost + moldingBurnoutCost + castingCost).toFixed(2)
+  );
+
+  // 3. Assembly Works
   let grindingCost = 0;
   if (works.grinding.enabled) {
     const grindingQty = works.grinding.type === 'per_gram' ? rawWeight : Math.max(0, Number(works.grinding.qty) || 0);
@@ -120,9 +149,9 @@ export function calculateCost(state: AppState): CalculationResult {
 
   const galvanicsSubtotal = Number((rhodiumCost + goldPlatingCost + oxidationCost).toFixed(2));
 
-  // 6. Direct Labor Total (Benchwork + Stone Setting Labor + Finishing + Galvanics)
+  // 6. Direct Labor & Prep Total (3D Design, Molding, Casting + Benchwork + Stone Setting Labor + Finishing + Galvanics)
   const directLaborTotal = Number(
-    (assemblyWorksSubtotal + stoneSettingSubtotal + finishingSubtotal + galvanicsSubtotal).toFixed(2)
+    (productionPrepSubtotal + assemblyWorksSubtotal + stoneSettingSubtotal + finishingSubtotal + galvanicsSubtotal).toFixed(2)
   );
 
   // 7. Additional Expenses
@@ -188,6 +217,11 @@ export function calculateCost(state: AppState): CalculationResult {
     metalLossWeight,
     metalTotalWeightWithLoss,
     metalTotalCost,
+
+    design3dCost,
+    moldingBurnoutCost,
+    castingCost,
+    productionPrepSubtotal,
 
     grindingCost,
     solderingCost,

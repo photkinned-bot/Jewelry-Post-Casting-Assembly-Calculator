@@ -110,9 +110,21 @@ export const PrintEstimateModal: React.FC<PrintEstimateModalProps> = ({
                 <td className="py-2 text-right font-mono font-semibold">{formatCurrencyUAH(calc.metalTotalCost)}</td>
               </tr>
 
-              {calc.stonesTotalCount > 0 && (
+              {calc.productionPrepSubtotal > 0 && (
                 <tr>
                   <td className="py-2 text-neutral-400">2</td>
+                  <td className="py-2 font-medium">
+                    Підготовка та литво (3D-дизайн: {formatCurrencyUAH(calc.design3dCost)}, випал: {formatCurrencyUAH(calc.moldingBurnoutCost)}, лиття: {formatCurrencyUAH(calc.castingCost)})
+                  </td>
+                  <td className="py-2 text-center font-mono">1 компл.</td>
+                  <td className="py-2 text-right font-mono">-</td>
+                  <td className="py-2 text-right font-mono font-semibold">{formatCurrencyUAH(calc.productionPrepSubtotal)}</td>
+                </tr>
+              )}
+
+              {calc.stonesTotalCount > 0 && (
+                <tr>
+                  <td className="py-2 text-neutral-400">3</td>
                   <td className="py-2 font-medium">Закріпка каміння (всі типи)</td>
                   <td className="py-2 text-center font-mono">{calc.stonesTotalCount} шт</td>
                   <td className="py-2 text-right font-mono">-</td>
@@ -122,7 +134,7 @@ export const PrintEstimateModal: React.FC<PrintEstimateModalProps> = ({
 
               {calc.stoneMaterialSubtotal > 0 && (
                 <tr>
-                  <td className="py-2 text-neutral-400">3</td>
+                  <td className="py-2 text-neutral-400">4</td>
                   <td className="py-2 font-medium">Вставки (матеріал/закупівля каміння)</td>
                   <td className="py-2 text-center font-mono">-</td>
                   <td className="py-2 text-right font-mono">-</td>
@@ -132,7 +144,7 @@ export const PrintEstimateModal: React.FC<PrintEstimateModalProps> = ({
 
               {calc.assemblyWorksSubtotal > 0 && (
                 <tr>
-                  <td className="py-2 text-neutral-400">4</td>
+                  <td className="py-2 text-neutral-400">5</td>
                   <td className="py-2 font-medium">Слюсарна обробка, пайка та збирання вузлів</td>
                   <td className="py-2 text-center font-mono">1 компл.</td>
                   <td className="py-2 text-right font-mono">-</td>
@@ -142,7 +154,7 @@ export const PrintEstimateModal: React.FC<PrintEstimateModalProps> = ({
 
               {calc.finishingSubtotal > 0 && (
                 <tr>
-                  <td className="py-2 text-neutral-400">5</td>
+                  <td className="py-2 text-neutral-400">6</td>
                   <td className="py-2 font-medium">Фінішна обробка (полірування, матування, гравіювання)</td>
                   <td className="py-2 text-center font-mono">-</td>
                   <td className="py-2 text-right font-mono">-</td>
@@ -152,7 +164,7 @@ export const PrintEstimateModal: React.FC<PrintEstimateModalProps> = ({
 
               {calc.galvanicsSubtotal > 0 && (
                 <tr>
-                  <td className="py-2 text-neutral-400">6</td>
+                  <td className="py-2 text-neutral-400">7</td>
                   <td className="py-2 font-medium">Гальванічні покриття (родій / позолота / оксидування)</td>
                   <td className="py-2 text-center font-mono">-</td>
                   <td className="py-2 text-right font-mono">-</td>
@@ -162,7 +174,7 @@ export const PrintEstimateModal: React.FC<PrintEstimateModalProps> = ({
 
               {calc.additionalSubtotal > 0 && (
                 <tr>
-                  <td className="py-2 text-neutral-400">7</td>
+                  <td className="py-2 text-neutral-400">8</td>
                   <td className="py-2 font-medium">Витратні матеріали та апробація у Пробірній палаті</td>
                   <td className="py-2 text-center font-mono">-</td>
                   <td className="py-2 text-right font-mono">-</td>
