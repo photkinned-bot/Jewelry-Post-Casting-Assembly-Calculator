@@ -26,7 +26,6 @@ interface CostSummaryCardProps {
   calc: CalculationResult;
   state: AppState;
   onCustomMarkupChange: (markup: number) => void;
-  onProductionPrepChange?: (updated: Partial<ProductionPrepState>) => void;
   onExportTxt: () => void;
 }
 
@@ -34,11 +33,9 @@ export const CostSummaryCard: React.FC<CostSummaryCardProps> = ({
   calc,
   state,
   onCustomMarkupChange,
-  onProductionPrepChange,
   onExportTxt,
 }) => {
   const [copied, setCopied] = useState(false);
-  const [isPrepOpen, setIsPrepOpen] = useState(true);
 
   const handleCopyClipboard = async () => {
     const text = generateTxtReport(state, calc);
@@ -49,12 +46,6 @@ export const CostSummaryCard: React.FC<CostSummaryCardProps> = ({
     } catch {
       // fallback
     }
-  };
-
-  const prep = state.productionPrep || {
-    design3d: { enabled: false, price: 500 },
-    moldingBurnout: { enabled: false, price: 150 },
-    casting: { enabled: false, type: 'fixed', price: 200 },
   };
 
   // Percentage shares for visual bar
@@ -146,178 +137,6 @@ export const CostSummaryCard: React.FC<CostSummaryCardProps> = ({
           )}
         </div>
       </div>
-
-      {/* Embedded Production Prep Block: 3D Design, Molding & Burnout, Casting */}
-      {onProductionPrepChange && (
-        <div className="bg-[#0c0e14] rounded-xl border border-amber-500/30 overflow-hidden">
-          <button
-            type="button"
-            onClick={() => setIsPrepOpen(!isPrepOpen)}
-            className="w-full p-3 flex items-center justify-between text-left text-xs font-semibold text-amber-300 hover:bg-amber-500/5 transition cursor-pointer select-none"
-          >
-            <div className="flex items-center gap-2">
-              <Layers className="w-4 h-4 text-amber-400" />
-              <span>3D-дизайн, формування та лиття виробу</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-amber-400 font-bold">
-                {formatCurrencyUAH(calc.productionPrepSubtotal)}
-              </span>
-              <ChevronDown
-                className={`w-3.5 h-3.5 text-neutral-400 transition-transform ${
-                  isPrepOpen ? 'rotate-180 text-amber-400' : ''
-                }`}
-              />
-            </div>
-          </button>
-
-          {isPrepOpen && (
-            <div className="p-3 pt-0 border-t border-[#1e2330] space-y-2.5 text-xs">
-              {/* 3D Design */}
-              <div className="flex items-center justify-between gap-2 pt-2">
-                <label className="flex items-center gap-2 text-neutral-300 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    id="summary-toggle-3d"
-                    checked={prep.design3d.enabled}
-                    onChange={(e) =>
-                      onProductionPrepChange({
-                        design3d: { ...prep.design3d, enabled: e.target.checked },
-                      })
-                    }
-                    className="rounded border-[#262c3e] bg-[#12151e] text-amber-500 focus:ring-amber-500/50"
-                  />
-                  <span className="flex items-center gap-1.5">
-                    <Compass className="w-3.5 h-3.5 text-cyan-400" />
-                    Дизайн 3D (CAD):
-                  </span>
-                </label>
-                <div className="relative w-24">
-                  <input
-                    type="number"
-                    disabled={!prep.design3d.enabled}
-                    value={prep.design3d.price || ''}
-                    onChange={(e) =>
-                      onProductionPrepChange({
-                        design3d: { ...prep.design3d, price: parseFloat(e.target.value) || 0 },
-                      })
-                    }
-                    className="w-full bg-[#12151e] border border-[#262c3e] rounded-lg px-2 py-1 text-xs text-amber-300 font-mono text-right focus:outline-none focus:ring-1 focus:ring-amber-500 disabled:opacity-50"
-                    placeholder="500"
-                  />
-                  <span className="absolute right-2 top-1 text-[10px] text-neutral-500 pointer-events-none">
-                    грн
-                  </span>
-                </div>
-              </div>
-
-              {/* Molding & Burnout */}
-              <div className="flex items-center justify-between gap-2">
-                <label className="flex items-center gap-2 text-neutral-300 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    id="summary-toggle-molding"
-                    checked={prep.moldingBurnout.enabled}
-                    onChange={(e) =>
-                      onProductionPrepChange({
-                        moldingBurnout: { ...prep.moldingBurnout, enabled: e.target.checked },
-                      })
-                    }
-                    className="rounded border-[#262c3e] bg-[#12151e] text-amber-500 focus:ring-amber-500/50"
-                  />
-                  <span className="flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-amber-400" />
-                    Формування/випалювання:
-                  </span>
-                </label>
-                <div className="relative w-24">
-                  <input
-                    type="number"
-                    disabled={!prep.moldingBurnout.enabled}
-                    value={prep.moldingBurnout.price || ''}
-                    onChange={(e) =>
-                      onProductionPrepChange({
-                        moldingBurnout: {
-                          ...prep.moldingBurnout,
-                          price: parseFloat(e.target.value) || 0,
-                        },
-                      })
-                    }
-                    className="w-full bg-[#12151e] border border-[#262c3e] rounded-lg px-2 py-1 text-xs text-amber-300 font-mono text-right focus:outline-none focus:ring-1 focus:ring-amber-500 disabled:opacity-50"
-                    placeholder="150"
-                  />
-                  <span className="absolute right-2 top-1 text-[10px] text-neutral-500 pointer-events-none">
-                    грн
-                  </span>
-                </div>
-              </div>
-
-              {/* Casting */}
-              <div className="flex flex-col gap-1.5">
-                <div className="flex items-center justify-between gap-2">
-                  <label className="flex items-center gap-2 text-neutral-300 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      id="summary-toggle-casting"
-                      checked={prep.casting.enabled}
-                      onChange={(e) =>
-                        onProductionPrepChange({
-                          casting: { ...prep.casting, enabled: e.target.checked },
-                        })
-                      }
-                      className="rounded border-[#262c3e] bg-[#12151e] text-amber-500 focus:ring-amber-500/50"
-                    />
-                    <span className="flex items-center gap-1.5">
-                      <Flame className="w-3.5 h-3.5 text-orange-400" />
-                      Послуги лиття:
-                    </span>
-                  </label>
-
-                  <div className="flex items-center gap-1.5">
-                    <select
-                      value={prep.casting.type}
-                      disabled={!prep.casting.enabled}
-                      onChange={(e) =>
-                        onProductionPrepChange({
-                          casting: {
-                            ...prep.casting,
-                            type: e.target.value as 'fixed' | 'per_gram',
-                            price: e.target.value === 'per_gram' ? 35 : 200,
-                          },
-                        })
-                      }
-                      className="bg-[#12151e] border border-[#262c3e] text-[11px] text-neutral-300 rounded px-1.5 py-1 focus:outline-none disabled:opacity-50"
-                    >
-                      <option value="fixed">фікс.</option>
-                      <option value="per_gram">за г</option>
-                    </select>
-
-                    <div className="relative w-20">
-                      <input
-                        type="number"
-                        disabled={!prep.casting.enabled}
-                        value={prep.casting.price || ''}
-                        onChange={(e) =>
-                          onProductionPrepChange({
-                            casting: { ...prep.casting, price: parseFloat(e.target.value) || 0 },
-                          })
-                        }
-                        className="w-full bg-[#12151e] border border-[#262c3e] rounded-lg px-2 py-1 text-xs text-amber-300 font-mono text-right focus:outline-none focus:ring-1 focus:ring-amber-500 disabled:opacity-50"
-                        placeholder={prep.casting.type === 'per_gram' ? '35' : '200'}
-                      />
-                    </div>
-                  </div>
-                </div>
-                {prep.casting.enabled && prep.casting.type === 'per_gram' && (
-                  <div className="text-[10px] text-right text-neutral-400 font-mono">
-                    ({formatNumber(calc.metalTotalWeightWithLoss, 2)}г × {prep.casting.price} грн/г = {formatCurrencyUAH(calc.castingCost)})
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
 
       {/* Detailed Items Breakdown */}
       <div className="space-y-2 text-xs bg-[#0c0e14] p-3.5 rounded-xl border border-[#232838] divide-y divide-[#1e2330]">

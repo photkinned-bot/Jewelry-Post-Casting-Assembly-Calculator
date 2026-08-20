@@ -67,7 +67,7 @@ export const MetalRateCard: React.FC<MetalRateCardProps> = ({
                 2. Курс металу та вартість сплаву
               </h2>
               <span className="text-[10px] font-mono text-neutral-400 bg-[#0e1017] px-2 py-0.5 rounded-md border border-[#232838]">
-                Блок 2 / 8
+                Блок 2 / 7
               </span>
             </div>
             <p className="text-xs text-neutral-400 truncate mt-0.5 hidden sm:block">

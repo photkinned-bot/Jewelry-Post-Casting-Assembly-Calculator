@@ -294,7 +294,6 @@ export const App: React.FC = () => {
       ...prev,
       productionPrep: {
         design3d: { ...prev.productionPrep.design3d, price: INITIAL_DEFAULT_PRICES.productionPrep.design3d_base },
-        moldingBurnout: { ...prev.productionPrep.moldingBurnout, price: INITIAL_DEFAULT_PRICES.productionPrep.molding_burnout_base },
         casting: {
           ...prev.productionPrep.casting,
           price:
@@ -447,16 +446,7 @@ export const App: React.FC = () => {
               onToggleCollapse={() => toggleSection('metalPricing')}
             />
 
-            {/* 3. 3D Design, Molding & Burnout, Casting */}
-            <ProductionPrepCard
-              productionPrep={state.productionPrep}
-              productWeightWithLoss={calculation.metalTotalWeightWithLoss}
-              onChange={handleProductionPrepChange}
-              isCollapsed={collapsedSections.productionPrep}
-              onToggleCollapse={() => toggleSection('productionPrep')}
-            />
-
-            {/* 4. Assembly & Post-Casting Benchwork */}
+            {/* 3. Assembly & Post-Casting Benchwork */}
             <AssemblyWorksCard
               works={state.works}
               productWeight={state.general.weight}
@@ -465,7 +455,7 @@ export const App: React.FC = () => {
               onToggleCollapse={() => toggleSection('assemblyWorks')}
             />
 
-            {/* 5. Stone Setting & Gem Materials */}
+            {/* 4. Stone Setting & Gem Materials */}
             <StoneSettingCard
               stones={state.stones}
               onChange={handleStonesChange}
@@ -473,7 +463,7 @@ export const App: React.FC = () => {
               onToggleCollapse={() => toggleSection('stoneSetting')}
             />
 
-            {/* 6. Galvanic Coatings */}
+            {/* 5. Galvanic Coatings */}
             <GalvanicsCard
               galvanics={state.galvanics}
               onChange={handleGalvanicsChange}
@@ -481,7 +471,7 @@ export const App: React.FC = () => {
               onToggleCollapse={() => toggleSection('galvanics')}
             />
 
-            {/* 7. Finishing & Texturing */}
+            {/* 6. Finishing & Texturing */}
             <FinishingCard
               finishing={state.finishing}
               onChange={handleFinishingChange}
@@ -489,7 +479,7 @@ export const App: React.FC = () => {
               onToggleCollapse={() => toggleSection('finishing')}
             />
 
-            {/* 8. Additional Expenses & Assay Office */}
+            {/* 7. Additional Expenses & Assay Office */}
             <AdditionalExpensesCard
               additional={state.additional}
               directLaborTotal={calculation.totalLaborAndServicesCost}
@@ -499,14 +489,22 @@ export const App: React.FC = () => {
             />
           </div>
 
-          {/* Right Column: Cost Summary & Chief Economist Conclusion */}
+          {/* Right Column: 3D Design & Casting + Cost Summary & Chief Economist Conclusion */}
           <div className="lg:col-span-5 space-y-5">
+            {/* 3D Design & Casting Prep Card (Collapsible) */}
+            <ProductionPrepCard
+              productionPrep={state.productionPrep}
+              productWeightWithLoss={calculation.metalTotalWeightWithLoss}
+              onChange={handleProductionPrepChange}
+              isCollapsed={collapsedSections.productionPrep}
+              onToggleCollapse={() => toggleSection('productionPrep')}
+            />
+
             {/* Cost Summary & Margins */}
             <CostSummaryCard
               calc={calculation}
               state={state}
               onCustomMarkupChange={handleCustomMarkupChange}
-              onProductionPrepChange={handleProductionPrepChange}
               onExportTxt={handleExportTxt}
             />
 

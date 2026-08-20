@@ -114,7 +114,7 @@ export const PrintEstimateModal: React.FC<PrintEstimateModalProps> = ({
                 <tr>
                   <td className="py-2 text-neutral-400">2</td>
                   <td className="py-2 font-medium">
-                    Підготовка та литво (3D-дизайн: {formatCurrencyUAH(calc.design3dCost)}, випал: {formatCurrencyUAH(calc.moldingBurnoutCost)}, лиття: {formatCurrencyUAH(calc.castingCost)})
+                    3D-дизайн та послуги лиття (CAD дизайн: {formatCurrencyUAH(calc.design3dCost)}, лиття: {formatCurrencyUAH(calc.castingCost)})
                   </td>
                   <td className="py-2 text-center font-mono">1 компл.</td>
                   <td className="py-2 text-right font-mono">-</td>

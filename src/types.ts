@@ -149,14 +149,10 @@ export interface ProductionPrepState {
     enabled: boolean;
     price: number; // 3D-моделювання / CAD дизайн (грн)
   };
-  moldingBurnout: {
-    enabled: boolean;
-    price: number; // Формування та випалювання опоки (грн)
-  };
   casting: {
     enabled: boolean;
     type: 'fixed' | 'per_gram'; // Фіксована ціна або за 1г металу відливки
-    price: number; // Вартість лиття (грн або грн/г)
+    price: number; // Вартість послуг лиття (грн або грн/г)
   };
 }
 
@@ -166,7 +162,6 @@ export interface DefaultPrices {
   };
   productionPrep: {
     design3d_base: number;
-    molding_burnout_base: number;
     casting_fixed: number;
     casting_per_gram: number;
   };
@@ -227,9 +222,8 @@ export interface CalculationResult {
   metalTotalWeightWithLoss: number;
   metalTotalCost: number;
 
-  // Production Prep & Casting (3D Design, Molding/Burnout, Casting)
+  // Production Prep & Casting (3D Design, Casting Services)
   design3dCost: number;
-  moldingBurnoutCost: number;
   castingCost: number;
   productionPrepSubtotal: number;
 

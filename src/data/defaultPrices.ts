@@ -11,7 +11,6 @@ export const INITIAL_DEFAULT_PRICES: DefaultPrices = {
   },
   productionPrep: {
     design3d_base: 500,
-    molding_burnout_base: 150,
     casting_fixed: 200,
     casting_per_gram: 35,
   },

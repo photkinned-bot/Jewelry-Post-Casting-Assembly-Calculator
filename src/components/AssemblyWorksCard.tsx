@@ -79,10 +79,10 @@ export const AssemblyWorksCard: React.FC<AssemblyWorksCardProps> = ({
           <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
               <h2 className="text-sm font-semibold text-white tracking-tight">
-                4. Слюсарні та монтувальні роботи
+                3. Слюсарні та монтувальні роботи
               </h2>
               <span className="text-[10px] font-mono text-neutral-400 bg-[#0e1017] px-2 py-0.5 rounded-md border border-[#232838]">
-                Блок 4 / 8
+                Блок 3 / 7
               </span>
             </div>
             <p className="text-xs text-neutral-400 truncate mt-0.5 hidden sm:block">

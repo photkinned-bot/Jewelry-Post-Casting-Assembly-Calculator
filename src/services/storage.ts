@@ -32,10 +32,6 @@ export function getDefaultInitialState(): AppState {
         enabled: false,
         price: 500,
       },
-      moldingBurnout: {
-        enabled: false,
-        price: 150,
-      },
       casting: {
         enabled: false,
         type: 'fixed',
@@ -161,9 +157,10 @@ export function loadStateFromLocalStorage(): AppState | null {
         if (!parsed.productionPrep) {
           parsed.productionPrep = {
             design3d: { enabled: false, price: 500 },
-            moldingBurnout: { enabled: false, price: 150 },
             casting: { enabled: false, type: 'fixed', price: 200 },
           };
+        } else if (!parsed.productionPrep.casting) {
+          parsed.productionPrep.casting = { enabled: false, type: 'fixed', price: 200 };
         }
         return parsed;
       }

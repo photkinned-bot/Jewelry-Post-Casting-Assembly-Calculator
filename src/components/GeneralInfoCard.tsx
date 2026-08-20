@@ -73,7 +73,7 @@ export const GeneralInfoCard: React.FC<GeneralInfoCardProps> = ({
             <div className="flex items-center gap-2 flex-wrap">
               <h2 className="text-sm font-semibold text-white tracking-tight">1. Інформація про виріб</h2>
               <span className="text-[10px] font-mono text-neutral-400 bg-[#0e1017] px-2 py-0.5 rounded-md border border-[#232838]">
-                Блок 1 / 8
+                Блок 1 / 7
               </span>
             </div>
             <p className="text-xs text-neutral-400 truncate mt-0.5 hidden sm:block">

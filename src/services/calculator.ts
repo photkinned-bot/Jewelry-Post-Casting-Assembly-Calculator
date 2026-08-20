@@ -37,19 +37,14 @@ export function calculateCost(state: AppState): CalculationResult {
   const metalTotalWeightWithLoss = Number((rawWeight + metalLossWeight).toFixed(3));
   const metalTotalCost = Number((metalTotalWeightWithLoss * metalPricePerGramAlloy).toFixed(2));
 
-  // 2. Production Prep & Casting (3D Design, Molding/Burnout, Casting)
+  // 2. Production Prep & Casting (3D Design, Casting Services)
   const prep = productionPrep || {
     design3d: { enabled: false, price: 0 },
-    moldingBurnout: { enabled: false, price: 0 },
     casting: { enabled: false, type: 'fixed', price: 0 },
   };
 
   const design3dCost = prep.design3d?.enabled
     ? Number(Math.max(0, Number(prep.design3d.price) || 0).toFixed(2))
-    : 0;
-
-  const moldingBurnoutCost = prep.moldingBurnout?.enabled
-    ? Number(Math.max(0, Number(prep.moldingBurnout.price) || 0).toFixed(2))
     : 0;
 
   let castingCost = 0;
@@ -63,7 +58,7 @@ export function calculateCost(state: AppState): CalculationResult {
   }
 
   const productionPrepSubtotal = Number(
-    (design3dCost + moldingBurnoutCost + castingCost).toFixed(2)
+    (design3dCost + castingCost).toFixed(2)
   );
 
   // 3. Assembly Works
@@ -219,7 +214,6 @@ export function calculateCost(state: AppState): CalculationResult {
     metalTotalCost,
 
     design3dCost,
-    moldingBurnoutCost,
     castingCost,
     productionPrepSubtotal,
 
