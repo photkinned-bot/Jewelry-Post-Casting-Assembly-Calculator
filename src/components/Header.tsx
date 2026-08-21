@@ -44,8 +44,13 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
           {/* Logo & Title */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/10 text-neutral-950 font-bold">
-              <Sparkles className="w-4 h-4 text-neutral-950" />
+            <div className="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-amber-400 to-amber-600 p-0.5 shadow-lg shadow-amber-500/20 flex-shrink-0">
+              <img
+                src="/apple-touch-icon.png"
+                alt="Jewelry Ring Icon"
+                className="w-full h-full object-cover rounded-[10px]"
+                referrerPolicy="no-referrer"
+              />
             </div>
             <div>
               <div className="flex items-center gap-2">
