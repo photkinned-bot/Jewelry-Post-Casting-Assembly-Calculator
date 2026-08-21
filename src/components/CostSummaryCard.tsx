@@ -17,7 +17,6 @@ import {
   Layers,
   Compass,
   Flame,
-  ChevronDown,
 } from 'lucide-react';
 import { formatCurrencyUAH, formatNumber } from '../services/calculator';
 import { generateTxtReport } from '../services/exporter';
@@ -56,7 +55,7 @@ export const CostSummaryCard: React.FC<CostSummaryCardProps> = ({
   const stoneShare = Math.round((calc.stoneMaterialSubtotal / total) * 100);
 
   return (
-    <div className="bg-[#12141c]/90 rounded-2xl border border-[#232838] p-5 shadow-xl space-y-5 sticky top-20">
+    <div id="card-cost-summary" className="bg-[#12141c]/90 rounded-2xl border border-[#232838] p-5 shadow-xl space-y-5">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-[#232838] pb-3">
         <div className="flex items-center gap-2.5">

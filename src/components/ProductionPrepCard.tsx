@@ -67,8 +67,11 @@ export const ProductionPrepCard: React.FC<ProductionPrepCardProps> = ({
           <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
               <h2 className="text-sm font-semibold text-white tracking-tight">
-                3D-дизайн, формування та лиття виробу
+                3. 3D-дизайн, формування та лиття виробу
               </h2>
+              <span className="text-[10px] font-mono text-neutral-400 bg-[#0e1017] px-2 py-0.5 rounded-md border border-[#232838]">
+                Блок 3 / 8
+              </span>
             </div>
             <p className="text-xs text-neutral-400 truncate mt-0.5 hidden sm:block">
               3D CAD моделювання та послуги ювелірного лиття

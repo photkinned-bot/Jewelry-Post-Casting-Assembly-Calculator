@@ -177,7 +177,7 @@ export function loadSavedState(): AppState {
 
 export async function fetchLatestDefaultPrices(): Promise<DefaultPrices> {
   try {
-    const baseUrl = import.meta.env.BASE_URL;
+    const baseUrl = (import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL || '/';
     const url = `${baseUrl.endsWith('/') ? baseUrl : baseUrl + '/'}data/default-prices.json`;
     const res = await fetch(url, { cache: 'no-cache' });
     if (res.ok) {

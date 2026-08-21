@@ -450,7 +450,16 @@ export const App: React.FC = () => {
               onToggleCollapse={() => toggleSection('metalPricing')}
             />
 
-            {/* 3. Assembly & Post-Casting Benchwork */}
+            {/* 3. 3D Design & Casting Prep Card */}
+            <ProductionPrepCard
+              productionPrep={state.productionPrep}
+              productWeightWithLoss={calculation.metalTotalWeightWithLoss}
+              onChange={handleProductionPrepChange}
+              isCollapsed={collapsedSections.productionPrep}
+              onToggleCollapse={() => toggleSection('productionPrep')}
+            />
+
+            {/* 4. Assembly & Post-Casting Benchwork */}
             <AssemblyWorksCard
               works={state.works}
               productWeight={state.general.weight}
@@ -459,7 +468,7 @@ export const App: React.FC = () => {
               onToggleCollapse={() => toggleSection('assemblyWorks')}
             />
 
-            {/* 4. Stone Setting & Gem Materials */}
+            {/* 5. Stone Setting & Gem Materials */}
             <StoneSettingCard
               stones={state.stones}
               onChange={handleStonesChange}
@@ -467,7 +476,7 @@ export const App: React.FC = () => {
               onToggleCollapse={() => toggleSection('stoneSetting')}
             />
 
-            {/* 5. Galvanic Coatings */}
+            {/* 6. Galvanic Coatings */}
             <GalvanicsCard
               galvanics={state.galvanics}
               onChange={handleGalvanicsChange}
@@ -475,7 +484,7 @@ export const App: React.FC = () => {
               onToggleCollapse={() => toggleSection('galvanics')}
             />
 
-            {/* 6. Finishing & Texturing */}
+            {/* 7. Finishing & Texturing */}
             <FinishingCard
               finishing={state.finishing}
               onChange={handleFinishingChange}
@@ -483,7 +492,7 @@ export const App: React.FC = () => {
               onToggleCollapse={() => toggleSection('finishing')}
             />
 
-            {/* 7. Additional Expenses & Assay Office */}
+            {/* 8. Additional Expenses & Assay Office */}
             <AdditionalExpensesCard
               additional={state.additional}
               directLaborTotal={calculation.totalLaborAndServicesCost}
@@ -493,17 +502,8 @@ export const App: React.FC = () => {
             />
           </div>
 
-          {/* Right Column: 3D Design & Casting + Cost Summary & Chief Economist Conclusion */}
+          {/* Right Column: Cost Summary & Chief Economist Conclusion */}
           <div className="lg:col-span-5 space-y-5">
-            {/* 3D Design & Casting Prep Card (Collapsible) */}
-            <ProductionPrepCard
-              productionPrep={state.productionPrep}
-              productWeightWithLoss={calculation.metalTotalWeightWithLoss}
-              onChange={handleProductionPrepChange}
-              isCollapsed={collapsedSections.productionPrep}
-              onToggleCollapse={() => toggleSection('productionPrep')}
-            />
-
             {/* Cost Summary & Margins */}
             <CostSummaryCard
               calc={calculation}

@@ -57,10 +57,10 @@ export const FinishingCard: React.FC<FinishingCardProps> = ({
           <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
               <h2 className="text-sm font-semibold text-white tracking-tight">
-                6. Фінішна обробка та декорування
+                7. Фінішна обробка та декорування
               </h2>
               <span className="text-[10px] font-mono text-neutral-400 bg-[#0e1017] px-2 py-0.5 rounded-md border border-[#232838]">
-                Блок 6 / 7
+                Блок 7 / 8
               </span>
             </div>
             <p className="text-xs text-neutral-400 truncate mt-0.5 hidden sm:block">
