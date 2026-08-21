@@ -187,13 +187,27 @@ export const PrintEstimateModal: React.FC<PrintEstimateModalProps> = ({
           {/* Grand Totals */}
           <div className="border-t-2 border-neutral-900 pt-4 space-y-2">
             <div className="flex justify-between items-center text-sm font-bold">
-              <span>ЗАГАЛЬНА СОБІВАРТІСТЬ ВИГОТОВЛЕННЯ:</span>
+              <span>ЗАГАЛЬНА СОБІВАРТІСТЬ ВИГОТОВЛЕННЯ (Prime Cost):</span>
               <span className="font-mono text-base">{formatCurrencyUAH(calc.totalManufacturingCost)}</span>
             </div>
 
-            <div className="flex justify-between items-center text-sm font-bold text-amber-700 bg-amber-50 p-2 rounded-lg">
-              <span>РЕКОМЕНДОВАНА ЦІНА РЕАЛІЗАЦІЇ (+{state.customMarkupPercent}%):</span>
-              <span className="font-mono text-lg">{formatCurrencyUAH(calc.customPrice)}</span>
+            <div className="flex justify-between items-center text-sm font-bold text-amber-900 bg-amber-50 p-3 rounded-lg border border-amber-200">
+              <div>
+                <span className="block">
+                  РЕКОМЕНДОВАНА ЦІНА РЕАЛІЗАЦІЇ (+{state.customMarkupPercent}%):
+                </span>
+                <span className="text-[11px] font-normal text-amber-800">
+                  {state.customMarkupPercent === 30
+                    ? 'Сегмент: Масмаркет (серійне/опт)'
+                    : state.customMarkupPercent === 70
+                    ? 'Сегмент: Авторський бренд / Хендмейд'
+                    : state.customMarkupPercent === 150
+                    ? 'Сегмент: Преміум / Люкс бутік'
+                    : `Індивідуальна торговельна націнка (+${state.customMarkupPercent}%)`}
+                  {' | '}Розрахункова маржа: +{formatCurrencyUAH(calc.customMarginVal)}
+                </span>
+              </div>
+              <span className="font-mono text-xl text-amber-950 font-black">{formatCurrencyUAH(calc.customPrice)}</span>
             </div>
           </div>
 

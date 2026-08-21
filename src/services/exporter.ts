@@ -160,12 +160,16 @@ export function generateTxtReport(state: AppState, calc: CalculationResult): str
   lines.push('--------------------------------------------------');
   lines.push('');
   lines.push('--- ОЦІНОЧНА НАЦІНКА ТА РОЗДРІБНІ ЦІНИ ---');
-  lines.push(`• Масмаркет (+30%): ${formatCurrencyUAH(calc.massMarketPrice)} (маржа: ${formatCurrencyUAH(calc.massMarketMargin)})`);
-  lines.push(`• Локальний авторський бренд / Хендмейд (+70%): ${formatCurrencyUAH(calc.localBrandPrice)} (маржа: ${formatCurrencyUAH(calc.localBrandMargin)})`);
-  lines.push(`• Преміум / Люкс сегмент (+150%): ${formatCurrencyUAH(calc.luxuryPrice)} (маржа: ${formatCurrencyUAH(calc.luxuryMargin)})`);
-  if (state.customMarkupPercent !== 30 && state.customMarkupPercent !== 70 && state.customMarkupPercent !== 150) {
-    lines.push(`• Користувацька націнка (+${state.customMarkupPercent}%): ${formatCurrencyUAH(calc.customPrice)} (маржа: ${formatCurrencyUAH(calc.customMarginVal)})`);
+  const isMM = state.customMarkupPercent === 30;
+  const isLB = state.customMarkupPercent === 70;
+  const isLux = state.customMarkupPercent === 150;
+  lines.push(`• Масмаркет (+30%): ${formatCurrencyUAH(calc.massMarketPrice)} (маржа: ${formatCurrencyUAH(calc.massMarketMargin)})${isMM ? ' [ОБРАНИЙ СЕГМЕНТ]' : ''}`);
+  lines.push(`• Локальний авторський бренд / Хендмейд (+70%): ${formatCurrencyUAH(calc.localBrandPrice)} (маржа: ${formatCurrencyUAH(calc.localBrandMargin)})${isLB ? ' [ОБРАНИЙ СЕГМЕНТ]' : ''}`);
+  lines.push(`• Преміум / Люкс сегмент (+150%): ${formatCurrencyUAH(calc.luxuryPrice)} (маржа: ${formatCurrencyUAH(calc.luxuryMargin)})${isLux ? ' [ОБРАНИЙ СЕГМЕНТ]' : ''}`);
+  if (!isMM && !isLB && !isLux) {
+    lines.push(`• Індивідуальна націнка (+${state.customMarkupPercent}%): ${formatCurrencyUAH(calc.customPrice)} (маржа: ${formatCurrencyUAH(calc.customMarginVal)}) [ОБРАНА ВЛАСНА ЦІНА]`);
   }
+  lines.push(`  РЕКОМЕНДОВАНА КІНЦЕВА ЦІНА РЕАЛІЗАЦІЇ: ${formatCurrencyUAH(calc.customPrice)}`);
   lines.push('');
   lines.push('--- АНАЛІТИЧНИЙ ВИСНОВОК ЕКСПЕРТА ---');
   lines.push(`• Категорія технологічної складності: ${calc.complexityScore}`);
