@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/Jewelry-Post-Casting-Assembly-Calculator/',
+    base: './',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
