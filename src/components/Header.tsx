@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { formatCurrencyUAH } from '../services/calculator';
 import { MetalPricingState } from '../types';
+import ringLogo from '../assets/ring-icon.png';
 
 interface HeaderProps {
   metalPricing: MetalPricingState;
@@ -46,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-amber-400 to-amber-600 p-0.5 shadow-lg shadow-amber-500/20 flex-shrink-0">
               <img
-                src={`${import.meta.env.BASE_URL}apple-touch-icon.png`}
+                src={ringLogo}
                 alt="Jewelry Ring Icon"
                 className="w-full h-full object-cover rounded-[10px]"
                 referrerPolicy="no-referrer"
