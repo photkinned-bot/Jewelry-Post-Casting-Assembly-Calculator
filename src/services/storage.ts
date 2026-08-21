@@ -177,13 +177,15 @@ export function loadSavedState(): AppState {
 
 export async function fetchLatestDefaultPrices(): Promise<DefaultPrices> {
   try {
-    const res = await fetch('./data/default-prices.json', { cache: 'no-cache' });
+    const baseUrl = import.meta.env.BASE_URL;
+    const url = `${baseUrl.endsWith('/') ? baseUrl : baseUrl + '/'}data/default-prices.json`;
+    const res = await fetch(url, { cache: 'no-cache' });
     if (res.ok) {
       const data = await res.json();
       return data as DefaultPrices;
     }
   } catch {
-    // fallback to absolute if running in root
+    // fallback
     try {
       const resFallback = await fetch('/data/default-prices.json', { cache: 'no-cache' });
       if (resFallback.ok) {
